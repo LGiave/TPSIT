@@ -1,25 +1,48 @@
-inf=1000
-grafo = [0,1,2,3]
-distance=[0,inf,inf,inf] 
-matrix =[[0, 1, 4, 0],[1, 0, 1, 3],[4, 1, 0, 1],[0, 3, 1, 0]]
-while len(grafo)>0:
-    nodo=grafo[0]
-    grafo.pop(0)
-    distance.pop(0)
-    min=100
-    vicini=[]
-    k=0
-    for k in matrix:
-        if (matrix[k][nodo] != 0):
-            vicini.append(matrix[k][nodo])
-            if(vicini[k]<distance[k] & (nodo==0)):
-                distance[k]=vicini[k]
-            if(vicini[k]<distance[k]):
-                for h in vicini:
-                    dist=[]
-                    if((distance[0]+vicini[h])<distance[1]):
-                        dist.append(distance[0]+vicini[h])
-                distance=dist
-percorso = min(distance)
-print(percorso)
+mat = [[0,1,2,0],[1,0,3,1],[2,3,0,2],[0,1,2,0]]
+INFINITO = 1000000000000000000000000
+
+def dijkstra (graph, source):
+    q = []
+    dist = []
+    prev = []
+    for v,n in enumerate(graph):
+        dist[v] = INFINITO
+        prev[v] = None
+        q.append(v)
     
+    dist[source] = 0
+
+    while q != None:
+
+        minn = INFINITO
+        for i in len(dist):
+            if (dist[i]<minn):
+                minn = i
+        
+        u = [q[minn], dist[minn]]
+
+        q.remove(minn)
+
+        mat = neighbor(graph, minn)
+
+        for v,m in enumerate(mat):
+            alt = dist[minn] + mat[v]
+            if (alt < dist[v]):
+                dist[v] = alt
+                prev[v] = minn
+    
+    return dist, prev
+
+def neighbor(graph, index):
+    matN = []
+    for i, c in graph:
+        if (c == index):
+            matN.append(graph[i][c])
+    return matN
+
+def main():
+    indice = int(input("inserisci un nodo del grafo da cui partire"))
+    print(dijkstra(mat, indice))
+
+if __name__ == "main":
+    main()
