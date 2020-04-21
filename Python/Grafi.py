@@ -12,6 +12,30 @@ def user2adj():
         Matrix.append(colonna)
     return Matrix
     
+    def heavyOrientedMatrix():
+    nodes = int(input("Inserire numero di nodi: "))
+
+    matrix = []
+
+    for i in range(0,nodes):
+        heavy_neighbor = [n for n in input(f"Inserisci i nodi adiacenti a {i} con il peso (2|32,): ").split(",")]
+        column = [0 for n in range(0,nodes)]
+
+        neighboor=[]
+        heavy=[]
+            
+        for k in heavy_neighbor:
+            n,h = k.split("|")
+            neighboor.append(int(n))
+            heavy.append(int(h))
+        print(neighboor,heavy,column)
+        for p,n in enumerate(neighboor):
+            column[n] = heavy[p]
+
+        matrix.append(column)
+
+    return matrix
+
 
 def adj2dict(Matrix):
     d={}
