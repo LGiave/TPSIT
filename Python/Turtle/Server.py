@@ -11,6 +11,8 @@ server_port=10000
 s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 s.bind((server_ip,server_port))
 
+function={"w":forward,"s":backward,"a":left,"d":right}
+
 port_table=[]
 turtle_dict={}
 
@@ -18,24 +20,36 @@ def turtle_create(address,movement):
     turtle_dict[address[1]]=turtle.Turtle()
     #turtle_dict[address[1]]=TURTLE_KING.clone()
     #turtle_dict[address[1]].showturtle()
-    move(address,movement)
+    function[movement]
+
+def forward():
+     turtle_dict[address[1]].forward(MOVE)
+
+def backward():
+    turtle_dict[address[1]].backward(MOVE)
+
+def left():
+    turtle_dict[address[1]].left(MOVE)
+
+def right():
+    turtle_dict[address[1]].right(MOVE) 
 
 def move(address,movement):
     if movement=="w":
-            turtle_dict[address[1]].forward(MOVE)
+           
     elif movement=="s":
-            turtle_dict[address[1]].backward(MOVE)
+            
     elif movement=="a":
-            turtle_dict[address[1]].left(MOVE)
+            
     elif movement=="d":
-             turtle_dict[address[1]].right(MOVE) 
+             
 
 while True:
     command,address = s.recvfrom(4096)
     movement=command.decode()
     if address[1] in port_table:
         print(address[1])
-        move(address,movement)
+        function[movement]
     else:
         port_table.append(address[1])
         turtle_create(address,movement)
