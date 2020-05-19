@@ -9,9 +9,9 @@ def cassa():
     global n_biglietti
     
     
-    rnd=random.randint(1,10)
+    
     l.acquire()
-
+    rnd=random.randint(1,10)
     if  n_biglietti==0:
         print("Biglietti acquistati 0\n")
     elif n_biglietti>0 and rnd<=n_biglietti :
